@@ -1,1 +1,6 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --font-bengali: var(--font-noto-bengali), sans-serif;
+}
