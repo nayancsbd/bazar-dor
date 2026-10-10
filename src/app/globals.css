@@ -13,6 +13,7 @@ html {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(-50%, 0, 0);
   }
@@ -21,7 +22,7 @@ html {
 .animate-ticker {
   display: flex;
   width: max-content;
-  animation: tickerMarquee 40s linear infinite;
+  animation: tickerMarquee 70s linear infinite;
 }
 
 .animate-ticker:hover {
