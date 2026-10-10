@@ -14,6 +14,8 @@ import {
   UserPlus,
 } from "lucide-react";
 import Navlinks from "./Navlinks";
+import PriceTicker from "./PriceTicker";
+import { getBengaliDate } from "@/lib/bengali";
 
 export interface HeaderProps {
   isLoggedIn?: boolean;
@@ -32,6 +34,7 @@ const Header: React.FC<HeaderProps> = ({
   onCategorySelect,
   onSignOut,
 }) => {
+  const [avatarError, setAvatarError] = useState(false);
   const [currentDate, setCurrentDate] = useState<string>(
     dateText || "মঙ্গলবার, ৬ অক্টোবর, ২০২৬"
   );
@@ -40,23 +43,10 @@ const Header: React.FC<HeaderProps> = ({
 
   useEffect(() => {
     if (!dateText) {
-      try {
-        const today = new Date();
-        const formatted = new Intl.DateTimeFormat("bn-BD", {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }).format(today);
-        setCurrentDate(formatted);
-      } catch {
-        // Fallback to static Bengali date if locale formatting is unavailable
-        setCurrentDate("মঙ্গলবার, ৬ অক্টোবর, ২০২৬");
-      }
+      setCurrentDate(getBengaliDate());
     }
   }, [dateText]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -74,20 +64,16 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="w-full bg-white border-b border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] sticky top-0 z-50">
-      {/* Top Navbar Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Left: Brand Identity */}
           <Link
             href="/"
             className="flex items-center gap-3.5 group focus:outline-hidden"
           >
-            {/* Green rounded icon badge */}
             <div className="w-12 h-12 rounded-2xl bg-[#0f8b44] flex items-center justify-center shadow-xs transition-transform duration-200 group-hover:scale-105 group-hover:bg-[#0c7a3b]">
               <ShoppingCart className="w-6 h-6 text-white stroke-[2.2]" />
             </div>
 
-            {/* Title & Date */}
             <div className="flex flex-col">
               <span className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-emerald-700 transition-colors">
                 বাজার দর
@@ -98,7 +84,6 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </Link>
 
-          {/* Right: Auth / Profile Section */}
           {isLoggedIn ? (
             <div className="relative" ref={dropdownRef}>
               <button
@@ -108,15 +93,20 @@ const Header: React.FC<HeaderProps> = ({
                 aria-haspopup="true"
                 className="flex items-center gap-2.5 p-1.5 pr-2.5 rounded-full hover:bg-gray-100/80 transition-colors duration-150 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-emerald-500/30"
               >
-                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-gray-200/90 shadow-2xs">
-                  <Image
-                    src={userAvatar}
-                    alt={userName}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 36px, 40px"
-                    priority
-                  />
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-gray-200/90 shadow-2xs bg-emerald-50 flex items-center justify-center">
+                  {!avatarError && userAvatar ? (
+                    <Image
+                      src={userAvatar}
+                      alt={userName}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 36px, 40px"
+                      priority
+                      onError={() => setAvatarError(true)}
+                    />
+                  ) : (
+                    <UserIcon className="w-5 h-5 text-emerald-700" />
+                  )}
                 </div>
 
                 <span className="text-sm font-semibold text-gray-800">
@@ -131,7 +121,6 @@ const Header: React.FC<HeaderProps> = ({
                 />
               </button>
 
-              {/* Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100">
                   <div className="px-4 py-2 border-b border-gray-100">
@@ -207,8 +196,9 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Categories Bar / Navlinks */}
       <Navlinks onSelectCategory={onCategorySelect} />
+
+      <PriceTicker />
     </header>
   );
 };

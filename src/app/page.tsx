@@ -1,17 +1,21 @@
+import React from "react";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
-    <div>
-    hello
+    <div className="w-full flex flex-col gap-10">
+      <Hero />
 
-
-ওয়েবসাইটে স্বাগতম
-এটি একটি পরীক্ষামূলক বাংলা টেক্সট। আপনার নেক্সট জেএস (Next.js) প্রজেক্টে 'নোতো সেরিফ বেঙ্গলি' (Noto Serif Bengali) ফন্টটি ঠিকমতো কাজ করছে কিনা, তা যাচাই করার জন্য এই লেখাগুলো ব্যবহার করতে পারেন।
-আধুনিক ওয়েব ডেভেলপমেন্ট
-রিয়্যাক্ট (React) এবং টেইলউইন্ড সিএসএস (Tailwind CSS) দিয়ে খুব সহজেই দৃষ্টিনন্দন ইউজার ইন্টারফেস তৈরি করা যায়। ফন্টের বিভিন্ন ওয়েট (যেমন: 400, 500, 600, 700) পরীক্ষা করার জন্য নিচের ডামি টেক্সটগুলো কপি করে আপনার কম্পোনেন্টে পেস্ট করতে পারেন:
-"প্রযুক্তি আমাদের প্রতিদিনের জীবনযাত্রাকে আরও সহজ এবং গতিশীল করে তুলেছে।"
-"সঠিক ফন্ট নির্বাচন একটি ওয়েবসাইটের ব্যবহারকারী অভিজ্ঞতা (User Experience) বহুগুণে বাড়িয়ে দেয়।"
-"
+      <section id="সব-পণ্য" className="w-full pt-4 scroll-mt-28">
+        <div className="flex flex-col gap-2 mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+            সব পণ্য
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-500">
+            নিত্যপ্রয়োজনীয় বাজারের সকল পণ্যের তালিকা
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

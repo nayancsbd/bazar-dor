@@ -1,6 +1,35 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --font-bengali: var(--font-noto-bengali), sans-serif;
+}
+
+@keyframes tickerMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: tickerMarquee 40s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+#next-logo,
+[data-nextjs-dev-overlay],
+nextjs-portal {
+  display: none !important;
 }

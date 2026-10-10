@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   variable: "--font-noto-bengali",
   subsets: ["bengali"],
-  weight: ["400", "500", "600", "700"], 
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,12 +25,11 @@ export default function RootLayout({
     <html lang="bn" className={`${notoSerifBengali.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-bengali bg-gray-50/50 text-gray-900">
         <Toaster position="top-center" reverseOrder={false} />
-        <Header />
-        <main className="flex-1">{children}</main>
-        {/* Footer placeholder */}
-        <footer className="py-6 text-center text-xs text-gray-400 border-t border-gray-100 bg-white">
-          © ২০২৬ বাজার দর। সর্বস্বত্ব সংরক্ষিত।
-        </footer>
+        <Navbar />
+        <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 flex-1 pb-16 sm:pb-24">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
