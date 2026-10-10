@@ -1,6 +1,6 @@
 import { Product, Category, PriceSummary, BazarPrice } from "@/types";
 
-const PRIMARY_API_BASE = "https://api.api-store.workers.dev/api/bazardor";
+const PRIMARY_API_BASE = "https://openapi.programming-hero.com/api/bazardor";
 const FALLBACK_API_BASE = "https://api.abcz.workers.dev/api/bazardor";
 
 const API_TIMEOUT_MS = 6000;
@@ -35,6 +35,13 @@ export async function fetchBazarDor<T>(
       if (!response.ok) {
         throw new Error(
           `HTTP ${response.status} ${response.statusText} from ${baseUrl}`
+        );
+      }
+
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error(
+          `Expected JSON response but received ${contentType} from ${baseUrl}`
         );
       }
 
