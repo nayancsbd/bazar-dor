@@ -7,7 +7,15 @@ interface ProductPageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamicParams = true;
 export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const products = await getProducts().catch(() => []);
+  return products.map((product) => ({
+    id: String(product.id),
+  }));
+}
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;

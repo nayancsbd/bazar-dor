@@ -1,8 +1,8 @@
 import React from "react";
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
+import AllProductsView from "@/components/AllProductsView";
 import { getProducts } from "@/lib/api";
-import { toBengaliNumber } from "@/lib/bengali";
 
 export const revalidate = 60;
 
@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <div className="w-full flex flex-col gap-12 sm:gap-16">
-      <Hero />
+      <Hero totalProducts={products.length} />
 
       {risers.length > 0 && (
         <section aria-labelledby="risers-heading" className="w-full flex flex-col gap-4">
@@ -57,22 +57,7 @@ export default async function Home() {
         </section>
       )}
 
-      <section id="সব-পণ্য" aria-labelledby="all-products-heading" className="w-full flex flex-col gap-4 scroll-mt-28">
-        <div className="flex flex-col gap-1">
-          <h2 id="all-products-heading" className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">
-            সব পণ্য
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-500">
-            মোট {toBengaliNumber(products.length)}টি নিত্য প্রয়োজনীয় পণ্য
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
-          {products.map((product) => (
-            <ProductCard key={`product-${product.id}`} product={product} />
-          ))}
-        </div>
-      </section>
+      <AllProductsView products={products} />
     </div>
   );
 }
