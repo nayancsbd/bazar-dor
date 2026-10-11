@@ -44,7 +44,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon.png?v=3" />
       </head>
       <body className="min-h-full flex flex-col font-bengali bg-gray-50/50 text-gray-900">
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster position="top-center" toastOptions={{ duration: 1200 }} reverseOrder={false} />
         <Navbar />
         <main className="w-full max-w-6xl mx-auto px-4 sm:px-6 flex-1 pb-16 sm:pb-24">
           {children}

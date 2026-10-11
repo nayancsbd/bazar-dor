@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getBengaliDate } from "@/lib/bengali";
@@ -8,6 +8,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import Navlinks from "./Navlinks";
 import PriceTicker from "./PriceTicker";
+import UserAvatar from "./UserAvatar";
 
 interface NavbarProps {
   dateText?: string;
@@ -19,6 +20,20 @@ const Navbar: React.FC<NavbarProps> = ({ dateText }) => {
   const [currentDate, setCurrentDate] = useState<string>(
     dateText || "মঙ্গলবার, ৬ অক্টোবর, ২০২৬"
   );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (!dateText) {
@@ -72,61 +87,58 @@ const Navbar: React.FC<NavbarProps> = ({ dateText }) => {
             {isPending ? (
               <div className="w-20 h-8 rounded-lg bg-gray-100 animate-pulse" />
             ) : session?.user ? (
-              <div className="dropdown dropdown-end">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="flex items-center gap-2 py-1.5 px-2.5 sm:px-3 rounded-full hover:bg-gray-100 transition-colors cursor-pointer select-none border border-transparent hover:border-gray-200"
+              <div className="relative" ref={menuRef}>
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                  className="flex items-center gap-2 sm:gap-2.5 py-1 px-1.5 sm:px-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer select-none"
+                  aria-expanded={menuOpen}
                 >
-                  {session.user.image ? (
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || "User"}
-                      className="w-8 h-8 rounded-full object-cover border border-emerald-200"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-[#0f8b44] text-white flex items-center justify-center font-bold text-xs shadow-2xs">
-                      {session.user.name
-                        ? session.user.name.charAt(0).toUpperCase()
-                        : "👤"}
-                    </div>
-                  )}
-                  <span className="text-xs sm:text-sm font-semibold text-gray-800 max-w-[120px] truncate">
+                  <UserAvatar
+                    image={session.user.image}
+                    name={session.user.name}
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full"
+                    shape="rounded-full"
+                  />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-800 max-w-[120px] sm:max-w-[160px] truncate">
                     {session.user.name || "ব্যবহারকারী"}
                   </span>
                   <span className="text-xs text-gray-400">▾</span>
-                </div>
+                </button>
 
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-50 menu p-2 shadow-lg bg-white rounded-2xl w-52 border border-gray-100 mt-2"
-                >
-                  <li className="px-3 py-2 border-b border-gray-100 mb-1">
-                    <span className="text-xs font-bold text-gray-900 truncate block p-0">
-                      {session.user.name}
-                    </span>
-                    <span className="text-[11px] text-gray-400 truncate block p-0">
-                      {session.user.email}
-                    </span>
-                  </li>
-                  <li>
+                {menuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white border border-gray-100 shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
+                    <div className="px-4 py-2.5 border-b border-gray-100 mb-1">
+                      <p className="text-xs font-bold text-gray-900 truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-[11px] text-gray-500 truncate mt-0.5">
+                        {session.user.email}
+                      </p>
+                    </div>
+
                     <Link
                       href="/profile"
-                      className="text-xs sm:text-sm font-medium text-gray-700 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl py-2"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs sm:text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                     >
-                      👤 প্রোফাইল
+                      <span className="text-base">👤</span>
+                      <span>আমার প্রোফাইল</span>
                     </Link>
-                  </li>
-                  <li>
+
                     <button
                       type="button"
-                      onClick={handleSignOut}
-                      className="text-xs sm:text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl py-2"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        handleSignOut();
+                      }}
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs sm:text-sm font-medium text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer"
                     >
-                      🚪 লগআউট
+                      <span className="text-base">🚪</span>
+                      <span>লগআউট</span>
                     </button>
-                  </li>
-                </ul>
+                  </div>
+                )}
               </div>
             ) : (
               <>

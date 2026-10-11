@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut, updateUser } from "@/lib/auth-client";
+import UserAvatar from "@/components/UserAvatar";
 import toast from "react-hot-toast";
 
 export default function ProfilePage() {
@@ -94,17 +95,12 @@ export default function ProfilePage() {
 
       <div className="bg-[#fafcfb] rounded-3xl border border-gray-200/90 p-5 sm:p-6 shadow-xs flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 min-w-0">
-          {user.image ? (
-            <img
-              src={user.image}
-              alt={user.name || "User"}
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border border-gray-200 shrink-0"
-            />
-          ) : (
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0f8b44] text-white flex items-center justify-center text-xl sm:text-2xl font-bold shadow-xs shrink-0 select-none">
-              {user.name ? user.name.charAt(0).toUpperCase() : "👤"}
-            </div>
-          )}
+          <UserAvatar
+            image={user.image}
+            name={user.name}
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border border-gray-200"
+            shape="rounded-2xl"
+          />
 
           <div className="flex flex-col min-w-0">
             <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight truncate">
