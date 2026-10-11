@@ -40,4 +40,4 @@
 
 ---
 
-## Live Link: [Bazer Dor]()
+## Live Link: [Bazer Dor](https://bazar-dor-two-beryl.vercel.app/)
