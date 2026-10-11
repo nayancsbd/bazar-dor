@@ -2,8 +2,10 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URL as string);
-const db = client.db("bazar-dor-auth");
+const client = new MongoClient(process.env.MONGODB_URL as string, {
+  serverSelectionTimeoutMS: 5000,
+});
+const db = client.db(process.env.MONGODB_DB_NAME || "bazar-dor-auth");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {

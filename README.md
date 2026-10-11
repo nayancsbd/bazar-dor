@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 বাজার দর (Bazar Dor) — নিত্যপণ্যের নির্ভরযোগ্য বাজার মূল্য প্ল্যাটফর্ম
 
-## Getting Started
+**বাজার দর** বাংলাদেশের বিভিন্ন পাইকারি ও খুচরা বাজারের নিত্যপ্রয়োজনীয় পণ্যের সর্বশেষ ও নির্ভরযোগ্য বাজার দর এক নজরে জানার একটি আধুনিক, দ্রুতগতির এবং মোবাইল-বান্ধব ওয়েব অ্যাপ্লিকেশন।
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ প্রযুক্তি স্ট্যাক (Tech Stack)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **ফ্রেমওয়ার্ক:** [Next.js 16 (App Router, Turbopack)](https://nextjs.org/)
+- **ইউজার ইন্টারফেস:** [React 19](https://react.dev/)
+- **প্রোগ্রামিং ভাষা:** [TypeScript](https://www.typescriptlang.org/)
+- **স্টাইলিং:** [Tailwind CSS v4](https://tailwindcss.com/) ও [DaisyUI 5](https://daisyui.com/)
+- **অথেনটিকেশন:** [BetterAuth](https://www.better-auth.com/) (Email/Password, Google & GitHub Social Login)
+- **ডাটাবেস:** [MongoDB](https://www.mongodb.com/) (MongoDB Adapter for BetterAuth)
+- **নোটিফিকেশন:** [React Hot Toast](https://react-hot-toast.com/)
+- **টাইপোগ্রাফি:** Noto Serif Bengali (Google Fonts)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ ৫টি মূল বৈশিষ্ট্য (5 Key Features)
 
-## Learn More
+1. **দৈনিক বাজার দর ও লাইভ প্রাইসটিকার (Live Price Marquee Ticker):**
+   - হেডারে স্বয়ংক্রিয়ভাবে স্ক্রোল হওয়া প্রাইসটিকারে প্রতিটি পণ্যের আজকের দর, একক এবং পূর্ববর্তী দিনের তুলনায় দর বৃদ্ধি (▲) বা দর পতন (▼) রিয়েল-টাইমে প্রদর্শিত হয়।
+   - টিকারে মাউস নিলে অ্যানিমেশন স্বয়ংক্রিয়ভাবে পজ (Pause) হয়ে যায়।
 
-To learn more about Next.js, take a look at the following resources:
+2. **বাজারভিত্তিক আঞ্চলিক মূল্যের তুলনামূলক বিশ্লেষণ (Regional Market Breakdown):**
+   - পণ্যের বিস্তারিত পৃষ্ঠায় কারওয়ান বাজার, মিরপুর, চট্টগ্রাম, রাজশাহী, সিলেটসহ বিভিন্ন আঞ্চলিক পাইকারি ও খুচরা বাজারের সর্বনিম্ন, সর্বোচ্চ এবং গড় মূল্যের বিস্তারিত তথ্য প্রদর্শিত হয়।
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **ডায়নামিক ক্যাটাগরি ও খাঁটি বাংলা সংখ্যাভিত্তিক সর্টিং (Dynamic Category & Numeric Bangla Sorting):**
+   - চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম-দুধ ও মসলা ক্যাটাগরিতে পণ্য ফিল্টার করার সুবিধা।
+   - বাংলা সংখ্যার (`০-৯`) স্ট্রিংকে স্বয়ংক্রিয়ভাবে গাণিতিক সংখ্যায় রূপান্তর করে "ডিফল্ট", "দাম: কম থেকে বেশি" এবং "দাম: বেশি থেকে কম" ক্রমে ১০০% নির্ভুল সর্টিং।
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **সুরক্ষিত রুট ও বেটারঅথ প্রমাণীকরণ (Protected Routes with BetterAuth):**
+   - পণ্য বিবরণী (`/product/[id]`) এবং প্রোফাইল (`/profile`) পেজগুলো সংরক্ষিত।
+   - আন-অথেনটিকেটেড ইউজার প্রবেশ করতে চাইলে স্বয়ংক্রিয়ভাবে নোটিফিকেশন সহ `/signin` পেজে রিডাইরেক্ট হয় এবং লগইন শেষে পুনরায় পূর্বের পেজে ফিরিয়ে আনা হয়।
 
-## Deploy on Vercel
+5. **ব্যবহারকারী প্রোফাইল ব্যবস্থাপনা ও রেসপন্সিভ ডিজাইন (User Profile Management & 100% Responsive UI):**
+   - ব্যবহারকারীর প্রোফাইল তথ্য পর্যবেক্ষণ এবং নাম পরিবর্তনের সুবিধা (`/profile/update`)।
+   - মোবাইল, ট্যাবলেট ও ডেস্কটপে মসৃণ স্কেলিটন লোডার (`loading.tsx`) এবং বন্ধুত্বপূর্ণ ৪০৪ পেজ (`not-found.tsx`)।
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

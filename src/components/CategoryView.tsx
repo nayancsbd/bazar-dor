@@ -65,54 +65,55 @@ const CategoryView: React.FC<CategoryViewProps> = ({
     );
   }
 
-  const categoryTitle = category?.nameBn || initialProducts[0]?.categoryNameBn || categorySlug;
-  const categoryIcon = category?.icon || initialProducts[0]?.categoryIcon || "🛒";
+  const categoryTitle =
+    category?.nameBn || initialProducts[0]?.categoryNameBn || categorySlug;
+  const categoryIcon =
+    category?.icon || initialProducts[0]?.categoryIcon || "🛒";
 
   return (
-    <div className="w-full flex flex-col gap-8">
-      <div className="flex items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-emerald-700 hover:text-emerald-800 transition-colors"
-        >
-          <span>←</span>
-          <span>হোম পেজে ফিরে যান</span>
-        </Link>
-      </div>
-
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+    <div className="w-full flex flex-col gap-5 sm:gap-6 my-6 sm:my-8">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xs flex items-center justify-between">
         <div className="flex items-center gap-4 sm:gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-50/70 flex items-center justify-center text-3xl sm:text-4xl shadow-2xs shrink-0">
+          <div className="w-16 h-16 rounded-2xl bg-[#fafbfb] border border-gray-100 flex items-center justify-center text-3xl sm:text-4xl shadow-2xs shrink-0">
             <span role="img" aria-label={categoryTitle}>
               {categoryIcon}
             </span>
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
               {categoryTitle}
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500">
-              মোট {toBengaliNumber(sortedProducts.length)}টি পণ্য তালিকাভুক্ত
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              {toBengaliNumber(sortedProducts.length)}টি পণ্যের আজকের দাম ও পরিবর্তন
             </p>
           </div>
         </div>
+      </div>
 
+      <div className="bg-white rounded-2xl px-6 py-4 border border-gray-100 shadow-xs flex items-center justify-end">
         <div className="flex items-center gap-3">
-          <label htmlFor="sort-select" className="text-xs sm:text-sm font-medium text-gray-500 whitespace-nowrap">
-            সাজান:
+          <label
+            htmlFor="sort-select"
+            className="text-xs sm:text-sm font-medium text-gray-600 whitespace-nowrap"
+          >
+            সাজান
           </label>
           <select
             id="sort-select"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="select select-bordered select-sm sm:select-md rounded-xl bg-white border-gray-200 text-xs sm:text-sm text-gray-800 font-medium focus:outline-hidden focus:ring-2 focus:ring-emerald-500/30"
+            className="select select-bordered select-sm rounded-xl bg-white border-gray-200 text-xs sm:text-sm text-gray-800 font-medium focus:outline-hidden focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
           >
             <option value="default">ডিফল্ট</option>
             <option value="price_asc">দাম: কম থেকে বেশি</option>
             <option value="price_desc">দাম: বেশি থেকে কম</option>
           </select>
         </div>
+      </div>
+
+      <div className="text-xs sm:text-sm text-gray-500 font-medium pt-1">
+        মোট {toBengaliNumber(sortedProducts.length)}টি পণ্য দেখানো হচ্ছে
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">

@@ -42,8 +42,21 @@ const Navbar: React.FC<NavbarProps> = ({ dateText }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0f8b44] flex items-center justify-center text-white text-lg sm:text-xl shadow-xs transition-transform group-hover:scale-105">
-              🛒
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0f8b44] flex items-center justify-center text-white shadow-xs transition-transform group-hover:scale-105">
+              <svg
+                className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="9" cy="21" r="1.5" fill="currentColor" />
+                <circle cx="20" cy="21" r="1.5" fill="currentColor" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-lg sm:text-xl font-bold tracking-tight text-gray-900 group-hover:text-emerald-700 transition-colors">

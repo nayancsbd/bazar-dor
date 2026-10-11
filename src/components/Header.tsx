@@ -29,7 +29,7 @@ export interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
   isLoggedIn = true,
   userName = "Rezwan",
-  userAvatar = "/rezwan.jpg",
+  userAvatar = "",
   dateText,
   onCategorySelect,
   onSignOut,

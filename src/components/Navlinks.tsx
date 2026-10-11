@@ -75,10 +75,10 @@ const Navlinks: React.FC<NavlinksProps> = ({
                 key={cat.id || cat.slug}
                 href={`/category/${cat.slug}`}
                 onClick={() => handleClick(cat.slug)}
-                className={`group flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer shrink-0 select-none ${
+                className={`group flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer shrink-0 select-none ${
                   isActive
-                    ? "text-emerald-800 bg-emerald-50 shadow-xs font-semibold ring-1 ring-emerald-300"
-                    : "text-gray-600 hover:text-emerald-700 hover:bg-gray-100/70"
+                    ? "bg-[#0f8b44] text-white shadow-xs font-semibold"
+                    : "text-gray-700 hover:text-emerald-800 hover:bg-gray-100/70"
                 }`}
               >
                 <span
